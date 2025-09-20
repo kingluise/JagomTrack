@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChurchTrack | Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="images/jagom.jpg" type="image/x-icon"/>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e1b4b,
+        #312e81,
+        #4c1d95,
+        #84cc16,
+        #f8fafc
+      );
+      background-size: 600% 600%;
+      animation: gradientMove 10s ease infinite;
+      color: white;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .sidebar {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-link:hover {
+      background: rgba(132, 204, 22, 0.1);
+    }
+    .sidebar-link.active {
+      background: rgba(132, 204, 22, 0.2);
+      border-left: 3px solid #84cc16;
+    }
+    .form-input {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .form-input:focus {
+      border-color: #84cc16;
+      outline: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
+    }
+    .header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .table-row:hover {
+      background: rgba(132, 204, 22, 0.05);
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      margin-top: 0.5rem;
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      z-index: 20;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-content button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      color: white;
+    }
+    .dropdown-content button:hover {
+      background: rgba(132, 204, 22, 0.1);
+    }
+  </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+  <!-- Sidebar -->
+  <div class="sidebar w-64 flex-shrink-0 hidden md:block">
+    <div class="p-6">
+      <div class="logo-container flex items-center mb-8">
+        <img src="images/jagom.jpg" alt="ChurchTrack Logo" class="w-10 h-10 rounded-full mr-2"/>
+        <h1 class="text-2xl font-bold">
+          JAGOM<span class="text-lime-400">Track</span>
+        </h1>
+      </div>
+
+      <nav class="space-y-2">
+        <a href="dashboard.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📊</span>
+          Dashboard
+        </a>
+        <a href="members.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">👥</span>
+          Members
+        </a>
+        <a href="attendance.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📝</span>
+          Attendance Tracker
+        </a>
+        <a href="analytics.html" class="sidebar-link active flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📈</span>
+          Analytics
+        </a>
+        <a href="branches.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">🏢</span> Branches
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Header -->
+    <header class="header flex items-center justify-between p-4">
+      <button class="md:hidden text-white">
+        <span class="text-2xl">☰</span>
+      </button>
+
+      <h2 class="text-xl font-semibold">Attendance Analytics</h2>
+
+      <button class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">
+        Logout
+      </button>
+    </header>
+
+    <!-- Content -->
+    <main class="flex-1 overflow-y-auto p-6">
+      <!-- Filters -->
+      <div class="bg-slate-800 bg-opacity-50 rounded-xl p-6 mb-8">
+        <h3 class="text-lg font-semibold mb-4">Filters</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium mb-1">Branch</label>
+            <select class="form-input w-full px-4 py-2 rounded-lg">
+              <option>All Branches</option>
+              <option>Opebi</option>
+              <option>Ikorodu</option>
+              <option>Otuyelu</option>
+              <option>Likosi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Date Range</label>
+            <select class="form-input w-full px-4 py-2 rounded-lg">
+              <option>Last 7 Days</option>
+              <option>Last 30 Days</option>
+              <option>Last 3 Months</option>
+              <option>Last 6 Months</option>
+              <option>Custom Range</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Custom Period</label>
+            <div class="flex flex-col space-y-2">
+              <input type="date" class="form-input w-full px-4 py-2 rounded-lg">
+              <input type="date" class="form-input w-full px-4 py-2 rounded-lg">
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button class="btn-primary px-6 py-2 rounded-lg font-medium shadow-lg transition duration-300">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Analytics Table -->
+      <div class="bg-slate-800 bg-opacity-50 rounded-xl p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-semibold">Attendance Records</h3>
+          <div class="dropdown">
+            <button class="btn-primary px-6 py-2 rounded-lg font-medium shadow-lg transition duration-300 flex items-center">
+              <span class="mr-2">📥</span>
+              Generate Report
+            </button>
+            <div class="dropdown-content w-48">
+              <button>All Branches</button>
+              <button>By Branch</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-gray-700 text-left">
+                <th class="pb-2">Member Name</th>
+                <th class="pb-2">Branch</th>
+                <th class="pb-2">Events Attended</th>
+                <th class="pb-2">Total Events</th>
+                <th class="pb-2">Attendance %</th>
+                <th class="pb-2">Rating</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700 text-gray-400">
+              <tr>
+                <td colspan="6" class="text-center py-6">No records found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-between items-center mt-6">
+          <div class="text-sm text-gray-400">
+            Showing 0 of 0 entries
+          </div>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1 rounded bg-slate-700 text-gray-400">Previous</button>
+            <button class="px-3 py-1 rounded bg-lime-500 text-white">1</button>
+            <button class="px-3 py-1 rounded bg-slate-700 text-gray-400">Next</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+  // Select the Logout button
+  const logoutBtn = document.querySelector("header button.bg-red-600");
+
+  // Add click event to redirect to login page
+  logoutBtn.addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChurchTrack | Branches</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="images/jagom.jpg" type="image/x-icon"/>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Animated gradient background */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #84cc16, #f8fafc, #e2e8f0, #cbd5e1);
+      background-size: 500% 500%;
+      animation: gradientFlow 16s ease infinite;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sidebar {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-link:hover {
+      background: rgba(132, 204, 22, 0.1);
+    }
+    .sidebar-link.active {
+      background: rgba(132, 204, 22, 0.2);
+      border-left: 3px solid #84cc16;
+    }
+
+    .header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-input {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    .form-input:focus {
+      border-color: #84cc16;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
+    }
+
+    .stat-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-row:hover {
+      background: rgba(132, 204, 22, 0.05);
+    }
+
+    /* Logo styling */
+    .logo-container img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 0.5rem;
+      border-radius: 20px;
+    }
+
+    /* Dropdown for members */
+    .member-table {
+      display: none;
+      background: rgba(30, 41, 59, 0.4);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+  <div class="animated-bg"></div>
+
+  <!-- Sidebar -->
+  <div class="sidebar w-64 flex-shrink-0 hidden md:block">
+    <div class="p-6">
+      <div class="logo-container flex items-center mb-8">
+        <img src="images/jagom.jpg" alt="ChurchTrack Logo"/>
+        <h1 class="text-2xl font-bold">JAGOM<span class="text-lime-400">Track</span></h1>
+      </div>
+      <nav class="space-y-2">
+        <a href="dashboard.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📊</span> Dashboard
+        </a>
+        <a href="members.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">👥</span> Members
+        </a>
+        <a href="attendance.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📝</span> Attendance Tracker
+        </a>
+        <a href="analytics.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📈</span> Analytics
+        </a>
+        <a href="branches.html" class="sidebar-link active flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">🏢</span> Branches
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Header -->
+    <header class="header flex items-center justify-between p-4">
+      <button class="md:hidden text-white">☰</button>
+      <h2 class="text-xl font-semibold">Branch Management</h2>
+      <button class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition" id="logoutBtn">Logout</button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6">
+      <!-- Add Branch Form -->
+      <div class="stat-card">
+        <h3 class="text-lg font-semibold mb-4">Add New Branch</h3>
+        <form id="branchForm" class="flex gap-3">
+          <input type="text" id="branchName" class="form-input flex-1 px-4 py-2 rounded-lg" placeholder="Branch Name" required/>
+          <button type="submit" class="btn-primary px-5 py-2 rounded-lg font-medium">Add Branch</button>
+        </form>
+      </div>
+
+      <!-- Branch Table -->
+      <div class="stat-card">
+        <h3 class="text-lg font-semibold mb-4">Branches</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-gray-700 text-left">
+                <th class="pb-2">Branch Name</th>
+                <th class="pb-2">Members</th>
+              </tr>
+            </thead>
+            <tbody id="branchTable" class="divide-y divide-gray-700">
+              <!-- Branch rows added dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="branches.js"></script>
+</body>
+</html>

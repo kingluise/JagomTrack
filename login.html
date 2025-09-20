@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JESUS ARMY | Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/jagom.jpg" type="image/x-icon" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Background image with faster zoom animation */
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
+      background: url('images/church.jpg') center/cover no-repeat;
+      filter: brightness(0.4);
+      animation: zoomBG 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes zoomBG {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+
+    /* Gradient overlay */
+    .gradient-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a, #1e293b);
+      background-size: 300% 300%;
+      animation: gradientBG 12s ease infinite;
+      opacity: 0.6;
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Login card: lighter transparency */
+    .login-card {
+      background: rgba(15, 23, 42, 0.2);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+      z-index: 10; /* ensures card is clickable */
+    }
+
+    /* Transparent input fields */
+    .input-field {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .input-field:focus {
+      border-color: #84cc16;
+      box-shadow: 0 0 10px rgba(132, 204, 22, 0.6);
+    }
+
+    /* Fix for dropdown visibility */
+    select.input-field {
+      background-color: rgba(15, 23, 42, 0.0);
+      color: white;
+    }
+
+    select.input-field option {
+      background-color: #1e293b;
+      color: white;
+    }
+
+    /* Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
+    }
+
+    /* Logo */
+    .logo-container img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      margin: 0 auto 1rem auto;
+      border-radius: 25px;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center text-white px-4">
+  <!-- Background layers -->
+  <div class="background"></div>
+  <div class="gradient-overlay"></div>
+
+  <!-- Login card -->
+  <div class="login-card rounded-2xl p-8 w-full max-w-md shadow-2xl text-center">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="images/jagom.jpg" alt="Jesus Army Logo">
+    </div>
+
+    <!-- App Title -->
+    <h1 class="text-3xl font-bold mb-2">
+      Jesus Army Global <span class="text-lime-400">Outreach Ministries</span>
+    </h1>
+    <p class="text-gray-300 mb-8">Attendance Management System</p>
+
+    <!-- Login Form -->
+    <form>
+      <div class="mb-4 text-left">
+        <label class="block text-sm font-medium mb-1" for="email">Email</label>
+        <input type="email" id="email" class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+      </div>
+
+      <div class="mb-4 text-left">
+        <label class="block text-sm font-medium mb-1" for="password">Password</label>
+        <input type="password" id="password" class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+      </div>
+
+      <div class="mb-6 text-left">
+        <label class="block text-sm font-medium mb-1" for="role">Role</label>
+        <select id="role" class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+          <option value="">Select Role</option>
+          <option value="admin">Admin</option>
+          <option value="operator">Operator</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold shadow-lg transition duration-300">
+        Login
+      </button>
+    </form>
+  </div>
+
+  <script src="js/login.js"></script>
+
+</body>
+</html>

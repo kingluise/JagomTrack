@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ChurchTrack | Attendance Tracker</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/jagom.jpg" type="image/x-icon" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .animated-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background: linear-gradient(
+        -45deg,
+        #0f172a,
+        #1e293b,
+        #312e81,
+        #84cc16,
+        #f8fafc,
+        #e2e8f0,
+        #cbd5e1
+      );
+      background-size: 500% 500%;
+      animation: gradientFlow 16s ease infinite;
+    }
+    @keyframes gradientFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sidebar {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-link:hover { background: rgba(132,204,22,0.08); }
+    .sidebar-link.active { background: rgba(132,204,22,0.12); border-left: 3px solid #84cc16; }
+
+    .header {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .form-input {
+      background: rgba(30,41,59,0.45);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: white;
+    }
+    .form-input:focus {
+      border-color: #84cc16;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+    }
+
+    .panel {
+      background: rgba(30,41,59,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .content-scroll {
+      height: calc(100vh - 64px);
+      overflow: auto;
+      padding: 1.5rem;
+    }
+
+    .hidden { display: none; }
+
+    .logo-container img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;   /* keeps aspect ratio */
+  margin-right: 0.5rem;  /* spacing from the text */
+  border-radius: 10px;   /* rounded corners */
+}
+
+  </style>
+</head>
+<body class="flex h-screen">
+  <!-- Animated background -->
+  <div class="animated-bg"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar w-64 flex-shrink-0 hidden md:block">
+    <div class="p-6">
+      <div class="logo-container flex items-center mb-8">
+        <img src="images/jagom.jpg" alt="Logo">
+        <h1 class="text-2xl font-bold">JAGOM<span class="text-lime-400">Track</span></h1>
+      </div>
+      <nav class="space-y-2">
+        <a href="dashboard.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📊</span> Dashboard
+        </a>
+        <a href="members.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">👥</span> Members
+        </a>
+        <a href="attendance.html" class="sidebar-link active flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📝</span> Attendance Tracker
+        </a>
+        <a href="analytics.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">📈</span> Analytics
+        </a>
+        <a href="branches.html" class="sidebar-link flex items-center px-4 py-3 rounded-lg">
+          <span class="mr-3">🏢</span> Branches
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="header flex items-center justify-between p-4">
+      <button class="md:hidden text-white">☰</button>
+      <h2 class="text-xl font-semibold">Attendance Tracker</h2>
+      <button class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">Logout</button>
+    </header>
+
+    <!-- Content -->
+    <main class="content-scroll">
+      <!-- Start Tracking -->
+      <section class="panel">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold">Track Attendance</h3>
+          <button id="startTrackingBtn" class="btn-primary px-5 py-2 rounded-lg font-semibold shadow">Start Tracking</button>
+        </div>
+
+        <!-- Attendance Code Input -->
+        <div id="codeInputSection" class="hidden mt-4">
+          <input id="attendanceCode" class="form-input w-full px-4 py-3 rounded-lg text-lg placeholder:text-gray-300" type="text" placeholder="Enter attendance code" />
+          <button id="applyCodeBtn" class="btn-primary mt-3 px-5 py-3 rounded-lg font-medium">Apply</button>
+        </div>
+
+        <!-- Member Details -->
+        <div id="memberDetailsSection" class="hidden mt-6 panel p-4 rounded-lg">
+          <h4 class="font-semibold mb-2">Member Details</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div><div class="text-sm text-gray-300">Full name</div><div id="memberName" class="font-medium">—</div></div>
+            <div><div class="text-sm text-gray-300">Email</div><div id="memberEmail" class="font-medium">—</div></div>
+            <div><div class="text-sm text-gray-300">Branch</div><div id="memberBranch" class="font-medium">—</div></div>
+          </div>
+          <div class="mt-4">
+            <button id="markAttendanceBtn" class="btn-primary px-5 py-2 rounded-lg font-medium">Mark Present</button>
+          </div>
+        </div>
+
+        <!-- Checked-in Members -->
+        <div id="checkedInMembers" class="panel p-4 rounded-lg mt-6">
+          <h4 class="font-semibold mb-3">Checked-in Members</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="text-left text-gray-300 border-b border-gray-700">
+                  <th class="py-2">Name</th>
+                  <th class="py-2">Email</th>
+                  <th class="py-2">Branch</th>
+                </tr>
+              </thead>
+              <tbody id="checkedInTbody" class="divide-y divide-gray-700">
+                <tr><td colspan="3" class="py-6 text-center text-gray-400">No records yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/attendance.js"></script>
+</body>
+</html>

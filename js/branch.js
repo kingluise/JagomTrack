@@ -1,6 +1,6 @@
 // Logout
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  window.location.href = 'login.html';
+  window.location.href = 'index.html';
 });
 
 // Branch management

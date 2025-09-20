@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logoutBtn.className = "px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition";
   logoutBtn.textContent = "Logout";
   logoutBtn.addEventListener("click", () => {
-    window.location.href = "login.html"; // redirect to login
+    window.location.href = "index.html"; // redirect to login
   });
   rightContainer.appendChild(logoutBtn);
 

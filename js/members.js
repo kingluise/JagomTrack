@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Logout functionality ---
   const logoutBtn = document.querySelector("header button.bg-red-600");
   logoutBtn.addEventListener("click", () => {
-    window.location.href = "login.html"; // redirect to login page
+    window.location.href = "index.html"; // redirect to login page
   });
 
   // --- Add Member form toggle ---

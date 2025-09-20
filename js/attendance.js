@@ -73,6 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 4️⃣ Logout redirect
   logoutBtn.addEventListener("click", () => {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   });
 });

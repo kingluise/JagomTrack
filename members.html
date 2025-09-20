@@ -4,8 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChurchTrack | Members</title>
+
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
   <link rel="icon" href="images/jagom.jpg" type="image/x-icon" />
 
   <style>
@@ -76,7 +82,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Logo */
     .logo-container img {
       width: 40px;
       height: 40px;
@@ -85,7 +90,6 @@
       border-radius: 20px;
     }
 
-    /* Details toggle for form */
     details[open] summary ~ * {
       animation: fadeIn 0.5s ease-in-out;
     }
@@ -131,14 +135,14 @@
   <div class="flex-1 flex flex-col overflow-hidden">
     <!-- Header -->
     <header class="header flex items-center justify-between p-4">
-      <button class="md:hidden text-white"><span class="text-2xl">☰</span></button>
+      <button id="menuToggle" class="md:hidden text-white"><span class="text-2xl">☰</span></button>
       <h2 class="text-xl font-semibold">Member Management</h2>
-      <button class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">Logout</button>
+      <button id="logoutBtn" class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">Logout</button>
     </header>
 
     <!-- Content -->
     <main class="flex-1 overflow-y-auto p-6">
-      <!-- Add Member Button + Form -->
+      <!-- Add Member Form -->
       <details class="bg-slate-800 bg-opacity-50 rounded-xl p-6 mb-8">
         <summary class="cursor-pointer text-lg font-semibold mb-4 list-none">
           <button class="btn-primary px-6 py-2 rounded-lg font-medium shadow-md">+ Add Member</button>
@@ -199,7 +203,6 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-700">
-              <!-- Empty: API will populate -->
               <tr>
                 <td colspan="5" class="text-center py-6 text-gray-400">No members available. Data will load via API.</td>
               </tr>
@@ -210,7 +213,25 @@
     </main>
   </div>
 
-  <script src="js/members.js"></script>
+  <!-- Scripts -->
+  <script>
+    // Sidebar toggle
+    const menuBtn = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('.sidebar');
+    const logoutBtn = document.getElementById('logoutBtn');
 
+    if (menuBtn && sidebar) {
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+      });
+    }
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+  <script src="js/members.js"></script>
 </body>
 </html>

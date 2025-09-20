@@ -89,13 +89,12 @@
     .hidden { display: none; }
 
     .logo-container img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;   /* keeps aspect ratio */
-  margin-right: 0.5rem;  /* spacing from the text */
-  border-radius: 10px;   /* rounded corners */
-}
-
+      width: 40px;
+      height: 40px;
+      object-fit: contain;   /* keeps aspect ratio */
+      margin-right: 0.5rem;  /* spacing from the text */
+      border-radius: 10px;   /* rounded corners */
+    }
   </style>
 </head>
 <body class="flex h-screen">
@@ -103,7 +102,7 @@
   <div class="animated-bg"></div>
 
   <!-- Sidebar -->
-  <aside class="sidebar w-64 flex-shrink-0 hidden md:block">
+  <aside class="sidebar w-64 flex-shrink-0 hidden md:block" id="sidebar">
     <div class="p-6">
       <div class="logo-container flex items-center mb-8">
         <img src="images/jagom.jpg" alt="Logo">
@@ -133,9 +132,9 @@
   <div class="flex-1 flex flex-col">
     <!-- Header -->
     <header class="header flex items-center justify-between p-4">
-      <button class="md:hidden text-white">☰</button>
+      <button id="sidebarToggle" class="md:hidden text-white">☰</button>
       <h2 class="text-xl font-semibold">Attendance Tracker</h2>
-      <button class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">Logout</button>
+      <button id="logoutBtn" class="px-4 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 transition">Logout</button>
     </header>
 
     <!-- Content -->
@@ -188,6 +187,22 @@
     </main>
   </div>
 
-  <script src="js/attendance.js"></script>
+  <!-- Global config script -->
+  <script src="js/config.js"></script>
+  <!-- Page-specific script -->
+  <script>
+     // Sidebar toggle for mobile
+     const sidebarToggle = document.getElementById("sidebarToggle");
+     const sidebar = document.getElementById("sidebar");
+     sidebarToggle.addEventListener("click", () => {
+       sidebar.classList.toggle("hidden");
+     });
+
+     // Logout redirect
+     const logoutBtn = document.getElementById("logoutBtn");
+     logoutBtn.addEventListener("click", () => {
+       window.location.href = "index.html";
+     });
+   </script>
 </body>
 </html>

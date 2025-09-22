@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = header.querySelector("#logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
-      window.location.href = "login.html"; // redirect to login page
+      window.location.href = "index.html"; // redirect to login page
     });
   }
 });
